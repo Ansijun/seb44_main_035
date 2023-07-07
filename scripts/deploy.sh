@@ -18,7 +18,7 @@ cd $REPOSITORY
 
 # build의 결과물 (jar 파일) 특정 위치로 복사
 echo "> build 파일 복사"
-cp $REPOSITORY/$PROJECT_NAME/build/libs/*.jar $REPOSITORY/
+cp $REPOSITORY/$PROJECT_NAME/server/build/libs/*.jar $REPOSITORY/
 
 echo "> 현재 구동중인 애플리케이션 pid 확인"
 CURRENT_PID=$(pgrep -f ${PROJECT_NAME}.*.jar)
