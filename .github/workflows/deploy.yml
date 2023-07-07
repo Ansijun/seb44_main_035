@@ -10,6 +10,8 @@ on:
   pull_request:
     branches: [ "dev" ]
 
+# 본인이 설정한 값을 여기서 채워넣습니다.
+# 리전, 버킷 이름, CodeDeploy 앱 이름, CodeDeploy 배포 그룹 이름
 env:
   AWS_REGION: ap-northeast-2
   S3_BUCKET_NAME: my-github-actions-s3-bucket
@@ -38,10 +40,14 @@ jobs:
         java-version: '11'
 
     # (3) Gradle build (Test 제외)
+    - name: init with Gradle
+      uses: gradle/gradle-build-action@v2
+    - run: gradle init
     - name: Build with Gradle
       uses: gradle/gradle-build-action@0d13054264b0bb894ded474f08ebb30921341cee
       with:
-        arguments: clean build -x test
+        gradle-version: 7.5.1
+        arguments: build
 
     # (4) AWS 인증 (IAM 사용자 Access Key, Secret Key 활용)
     - name: Configure AWS credentials
