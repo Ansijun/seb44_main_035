@@ -37,7 +37,7 @@ jobs:
       with:
         ref: 'dev'  # 원래 브랜치
     - name: Switch branch
-      run: git switch member
+      run: git switch feat/member
 
     # (2) JDK 11 세팅
     - name: Set up JDK 11
