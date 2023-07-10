@@ -27,12 +27,17 @@ jobs:
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
+
     environment: production
 
     steps:
     # (1) 기본 체크아웃
     - name: Checkout
       uses: actions/checkout@v3
+      with:
+        ref: 'dev'  # 원래 브랜치
+    - name: Switch branch
+      run: git switch member
 
     # (2) JDK 11 세팅
     - name: Set up JDK 11
