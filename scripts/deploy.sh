@@ -3,7 +3,7 @@ REPOSITORY=/home/ec2-user/app/project
 PROJECT_NAME=seb44_main_035
 
 # git clone 받은 위치로 이동
-cd $REPOSITORY/$PROJECT_NAME/
+cd /home/ec2-user/app/project/server
 
 # master 브랜치의 최신 내용 받기
 echo "> Git Pull"
@@ -33,7 +33,7 @@ else
 fi
 
 echo "> 새 애플리케이션 배포"
-JAR_NAME=$(ls -tr $REPOSITORY/ | grep jar | tail -n 1)
+JAR_NAME="server-0.0.1-SNAPSHOT.jar"
 
 echo "> Jar Name: $JAR_NAME"
 nohup java -jar $REPOSITORY/$JAR_NAME 2>&1 &
