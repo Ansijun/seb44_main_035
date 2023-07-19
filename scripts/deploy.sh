@@ -1,9 +1,9 @@
 # 자주 사용하는 값 변수에 저장
 REPOSITORY=/home/ec2-user/app/project
-PROJECT_NAME=seb44_main_035
+PROJECT_NAME=server
 
 # git clone 받은 위치로 이동
-cd /home/ec2-user/app/project/server
+cd $REPOSITORY/$PROJECT_NAME/
 
 # master 브랜치의 최신 내용 받기
 echo "> Git Pull"
@@ -11,6 +11,8 @@ git pull
 
 # build 수행
 echo "> project build start"
+cd $REPOSITORY/$PROJECT_NAME/
+chmod +x ./gradlew
 ./gradlew build
 
 echo "> directory로 이동"
