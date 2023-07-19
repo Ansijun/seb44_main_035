@@ -3,7 +3,7 @@ REPOSITORY=/home/ec2-user/app/project
 PROJECT_NAME=server
 
 # git clone 받은 위치로 이동
-cd $REPOSITORY/$PROJECT_NAME/
+cd /home/ec2-user/app/project
 
 # master 브랜치의 최신 내용 받기
 echo "> Git Pull"
