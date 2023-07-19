@@ -39,11 +39,7 @@ public class UserController {
         User user = userService.findUser(userId);
         System.out.println(user.getRecipeList());
     }
-       @GetMapping("find/{user-id}")
-    public void getUser(@PathVariable("user-id") long userId) {
-        User user = userService.findUser(userId);
-        System.out.println(user.getRecipeList());
-    }
+
 
     @GetMapping("/find/liked/{user-id}")
     public ResponseEntity getUserRecommend(@PathVariable("user-id") long userId,
