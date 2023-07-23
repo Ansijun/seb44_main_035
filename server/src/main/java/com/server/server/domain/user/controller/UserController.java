@@ -59,12 +59,16 @@ public class UserController {
         User savedUser = userService.createUser(user);
         savedUser.setPassword(password);
 
+
         return new ResponseEntity(new SingleResponseDto<>(
                 userMapper.userToGuestResponse(savedUser)), HttpStatus.OK);
     }
-    @GetMapping("/find/liked")
-    public ResponseEntity getUserRecommend(@LoginMemberId Long userId,
-                                           @RequestParam(value = "page", defaultValue = "1") int page,
+
+
+    @GetMapping("/find/liked/{user-id}")
+    public ResponseEntity getUserRecommend(@PathVariable("user-id") long userId,
+
+                                         @RequestParam(value = "page", defaultValue = "1") int page,
                                            @RequestParam(value = "size", defaultValue = "20") int size) {
         Pageable pageable = PageRequest.of(page - 1, size);
         Page<Recipe> recipePage = userService.findUserRecommendRecipe(userId, pageable);

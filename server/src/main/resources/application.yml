@@ -1,6 +1,7 @@
 spring:
   profiles:
     include: oauth
+
   h2:
     console:
       enabled: true
@@ -8,11 +9,16 @@ spring:
       settings:
         web-allow-others: true
 
+
   datasource:
-    url: jdbc:h2:mem:test
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://main-database.c3al47kbxqk7.ap-northeast-2.rds.amazonaws.com:3306/main_database?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    username: sijun
+    password: xogns0538!!
   jpa:
+    database-platform: org.hibernate.dialect.MySQL8Dialect
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     show-sql: true
     properties:
       hibernate:
@@ -22,12 +28,19 @@ spring:
       enabled: true
       max-file-size: 10MB
       max-request-size: 10MB
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
 logging:
   level:
     org:
       springframework:
         orm:
           jpa: DEBUG
+    com:
+      amazonaws:
+        util:
+          EC2MetadataUtils: error
+
 server:
   servlet:
     encoding:
