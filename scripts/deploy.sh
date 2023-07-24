@@ -1,39 +1,21 @@
-# 자주 사용하는 값 변수에 저장
-REPOSITORY=/home/ec2-user/app/project
-PROJECT_NAME=seb44_main_035
+#!/usr/bin/env bash
 
-# git clone 받은 위치로 이동
-cd $REPOSITORY/$PROJECT_NAME/
+PROJECT_ROOT="/home/ec2-user/app/project"
+JAR_FILE="$PROJECT_ROOT/server-0.0.1-SNAPSHOT.jar"
 
-# master 브랜치의 최신 내용 받기
-echo "> Git Pull"
-git pull
+APP_LOG="$PROJECT_ROOT/application.log"
+ERROR_LOG="$PROJECT_ROOT/error.log"
+DEPLOY_LOG="$PROJECT_ROOT/deploy.log"
 
-# build 수행
-echo "> project build start"
-./gradlew build
+TIME_NOW=$(date +%c)
 
-echo "> directory로 이동"
-cd $REPOSITORY
+# build 파일 복사
+echo "$TIME_NOW > $JAR_FILE 파일 복사" >> $DEPLOY_LOG
+cp $PROJECT_ROOT/build/libs/*.jar $JAR_FILE
 
-# build의 결과물 (jar 파일) 특정 위치로 복사
-echo "> build 파일 복사"
-cp $REPOSITORY/$PROJECT_NAME/server/build/libs/*.jar $REPOSITORY/
+# jar 파일 실행
+echo "$TIME_NOW > $JAR_FILE 파일 실행" >> $DEPLOY_LOG
+nohup java -jar $JAR_FILE > $APP_LOG 2> $ERROR_LOG &
 
-echo "> 현재 구동중인 애플리케이션 pid 확인"
-CURRENT_PID=$(pgrep -f ${PROJECT_NAME}.*.jar)
-
-echo "> 현재 구동중인 애플리케이션 pid: $CURRENT_PID"
-if [ -z "$CURRENT_PID" ]; then
-	echo "> 현재 구동중인 애플리케이션이 없으므로 종료하지 않습니다."
-else
-	echo "> kill -15 $CURRENT_PID"
-	kill -15 $CURRENT_PID
-	sleep 5
-fi
-
-echo "> 새 애플리케이션 배포"
-JAR_NAME="server-0.0.1-SNAPSHOT.jar"
-
-echo "> Jar Name: $JAR_NAME"
-nohup java -jar $REPOSITORY/$JAR_NAME 2>&1 &
+CURRENT_PID=$(pgrep -f $JAR_FILE)
+echo "$TIME_NOW > 실행된 프로세스 아이디 $CURRENT_PID 입니다." >> $DEPLOY_LOG
