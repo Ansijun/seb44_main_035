@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 PROJECT_ROOT="/home/ec2-user/app/project"
-JAR_FILE="$PROJECT_ROOT/spring-webapp.jar"
+JAR_FILE="$PROJECT_ROOT/server-0.0.1-SNAPSHOT.jar"
 
 DEPLOY_LOG="$PROJECT_ROOT/deploy.log"
 
